@@ -10,7 +10,7 @@
 Part 1 is re_submission of Assignment5 on building a Sentiment Claasifier using Stanford Sentiment Analyis Dataset.
 #### Requirements
 -The dataset to be built using our pre-processing statements rather than using pytreebank
--The dataset needed to built taking datasetSentences.txt and five classes to be created using the following range of sentiment values:
+-The dataset needed to built taking datasetSentences.txt and five classes to be created using the following range of sentiment values:<br/>
 [0-0.2 : 1, 0.2-0.4 : 2, 0.4-0.6 : 3, 0.6-0.8 : 4, 0.8-1.0: 5] 
 -Dataset to be split into Train/Test in 70/30 ratio (and no validation set)
 #### Initial Investigations
@@ -46,14 +46,16 @@ LSTM model was built and tested with hyperparameters as given in the table below
 |No. of output Nodes|5|
 |No. of Layers| 2|
 |Dropout| 0.2|
+
 Regularisation chosen was L2 with lambda=0.001.
+
 ### Results
 Best test accuracy achieved was 40.5%<br/>
 Graph below shows the variation in loss for testing  and training.<br/>
 ![image](https://user-images.githubusercontent.com/82941475/122327349-56c24080-cf4b-11eb-93d2-d961b1e1211d.png)
 
 ### Sample 10 Sentences randomly chosen from test set and their sentiments
-|Sentence| Sentiment|
+| Sentence | Sentiment|
 |-------- |-------------|
 |Well-shot but badly written tale set in a future ravaged by dragons . |  Very Positive|
 |Elicits more groans from the audience than Jar Jar Binks , Scrappy Doo and Scooby Dumb , all wrapped up into one . |  Negative|
@@ -67,8 +69,8 @@ Graph below shows the variation in loss for testing  and training.<br/>
 |Although based on a real-life person , John , in the movie , is a rather dull person to be stuck with for two hours . | Positive |
 
 ## *Part 2*
-In part2 of this assignment, we were to train model written in the class on the following two datasets : "
-http://www.cs.cmu.edu/~ark/QA-data/ 
+In part2 of this assignment, we were to train model written in the class on the following two datasets : <br/>
+http://www.cs.cmu.edu/~ark/QA-data/ <br/>
 https://quoradata.quora.com/First-Quora-Dataset-Release-Question-Pairs
 #### Requirements
 - For both the datasets, the task is NMT.
@@ -93,15 +95,55 @@ Field 5 is a difficulty rating assigned by the individual who evaluated and answ
 which may differ from the difficulty in field 4. <br/>
 Field 6 is the relative path to the prefix of the article files. html files (.htm) and cleaned 
 text (.txt) files are provided.<br/>
-From this dataset, we selected only **Field 2(Question)** and **Field 3(Answer)** as needed. This data was selected from the three directories *S08, S09, S10* and concatenated to create one dataset.##### QA Dataset
+From this dataset, we selected only **Field 2(Question)** and **Field 3(Answer)** as needed. This data was selected from the three directories *S08, S09, S10* and concatenated to create one dataset
+Here is a glimpse of the dataset values
+
+|   |Question|	Answer|
+|---|------------|------------|
+|0|Was Abraham Lincoln the sixteenth President of...|yes|
+|1|Was Abraham Lincoln the sixteenth President of...|Yes.|
+|2|Did Lincoln sign the National Banking Act of 1...|yes|
+|3|Did Lincoln sign the National Banking Act of 1...|Yes.|
+|4|Did his mother die of pneumonia?|no|
 
 ##### Quora Dataset
 The highlights of this dataset are:
 - Contained a single file quora_duplicate_questions.tsv
 - The fields in the dataset are as :<br/>
 *id 	qid1	qid2	question1	question2	is_duplicate*
-From this dataset, we only selected **question1** and **question2** pairs, for which **is_duplicate is True**
+From this dataset, we only selected **question1** and **question2** pairs, for which **is_duplicate is True** <br/>
+Here is a glimpse of what data looked like<br/>
 
+| id | question1 | question2 | is_duplicate|
+| --- | ----------- | -------------- | ------------- |
+|5 |Astrology: I am a Capricorn Sun Cap moon and c...|I'm a triple Capricorn (Sun, Moon and ascendan...|1 |
+|7 |How can I be a good geologist?|What should I do to be a great geologist?|1|
+|11|How do I read and find my YouTube comments?|How can I see all my Youtube comments?|1|
+|12|What can make Physics easy to learn?|How can you make physics easy to learn?|1|
+|13|What was your first sexual experience like?|What was your first sexual experience?|1|
+
+*id* here seen to non-continouous, so it was reset to start from *0*.
+#### Results and Discussion
+##### QA Dataset
+- The number of examples in this dataset after concatenating the data for first, second and third year students (S08, S09, and S10 directories respectively) is **3997**
+- Unique tokens in source  vocabulary: 2215
+- Unique tokens in target vocabulary: 1293
+- Time taken to process each epoch (on average) was 1 minute 7 seconds. 
+- The model was run for 10 epochs. Final loss and perplexity values obtained are:
+ 	Train Loss: 3.674 | Train PPL:  39.429
+	 Test Loss: 3.436 | Test Loss:  31.059
+##### Quora Dataset
+- The number of examples in this dataset after selecting only duplicate quesions is **149263**
+- Unique tokens in source  vocabulary: 14579
+- Unique tokens in target vocabulary: 14533
+- Time taken to process each epoch (on average) was 4 minutes 7 seconds. 
+- The model was run for 10 epochs. Final loss and perplexity values obtained are:
+ 	Train Loss: 2.142 | Train PPL:   8.518
+	 Test Loss: 3.594 |  Test PPL:  36.368
+### Key Learnings
+- Doing part 1 of the assignment where we needed to pre-process the stanford sentiment analysis dataset was an eye opener for me. To be able to perform joins as in SQL was one of the exciting finds. First time I had done this using pytreebank and couldn't fathom what was going on behind the scene.
+- Doing pre-processing for the other two datasets, helped me to understand handling of text data, and lots of other features which I would not have explored otherwise.
+ 
 ### Group Members
 Ritambhra Korpal<br/>
 Chaitanya Vanapamala <br/>
