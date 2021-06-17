@@ -1,6 +1,6 @@
 # END2_Assignment7
 Assignment 7
-### a note on file names
+### A note on file names
 **Assignment7_1LSTM** is part 1 of the assginment which is re-submit of Assignment 5 <br/>
 **Assignment7_2qa** and **Assignment7_2quora** is part2 of the assignment <br/>
 **test_sent.pkl** is the file which has the test set of sentences out of which 10 are randomly chosen to get the sentiments.
@@ -48,8 +48,8 @@ LSTM model was built and tested with hyperparameters as given in the table below
 |Dropout| 0.2|
 Regularisation chosen was L2 with lambda=0.001.
 ### Results
-Best test accuracy achieved was 40.5%
-Graph below shows the variation in loss for testing  and training.
+Best test accuracy achieved was 40.5%<br/>
+Graph below shows the variation in loss for testing  and training.<br/>
 
 ### Sample 10 Sentences randomly chosen from test set and their sentiments
 |Sentence| Sentiment|
