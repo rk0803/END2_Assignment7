@@ -33,9 +33,11 @@ The dataset was thoroughly studied, a strategy was formulated to create dataset 
 6. Finally split the dataset into train and test in 70/30 ratio.
 ### Discussion
 Now we have the distribution of classes in the training set as shown below (as we have ignored the split specified with the dataset) :
-![image](https://user-images.githubusercontent.com/82941475/120589588-b2be9c80-c456-11eb-8bc3-cc5d444ae2f5.png)
+![image](https://user-images.githubusercontent.com/82941475/122326485-00083700-cf4a-11eb-9d37-7e670eb1cbad.png)
+It can be seen that training dataset has sentences with labels other than 5 nearly equal.
+
 ### Model 
-LSTM models was built and tested with hyperparameters as given in the table below:
+LSTM model was built and tested with hyperparameters as given in the table below:
 |Hyper parameter| Value|
 |---------------|------|
 |Size of Vocab  | No of words in the text|
@@ -47,7 +49,7 @@ LSTM models was built and tested with hyperparameters as given in the table belo
 Regularisation chosen was L2 with lambda=0.001.
 ### Results
 Best test accuracy achieved was 40.5%
-Graph below shows the variation of loss in testing  and training.
+Graph below shows the variation in loss for testing  and training.
 
 ### Sample 10 Sentences randomly chosen from test set and their sentiments
 |Sentence| Sentiment|
