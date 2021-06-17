@@ -2,9 +2,7 @@
 Assignment 7
 ### a note on file names
 **Assignment7_1LSTM** is part 1 of the assginment which is re-submit of Assignment 5 <br/>
-**Assignment7_2qa** and Assignment7_2quora** is part2 of the assignment <br/>
-**dataset_gen** is the notebook which collects the SST data, augments it, and stores it by pickling <br/>
-**trainset_new.pkl, testset.pkl, valset.pkl** are the files which are used in 5_2 series. <br/>
+**Assignment7_2qa** and **Assignment7_2quora** is part2 of the assignment <br/>
 **test_sent.pkl** is the file which has the test set of sentences out of which 10 are randomly chosen to get the sentiments.
 
 ## *Part 1*
@@ -17,27 +15,29 @@ Part 1 is re_submission of Assignment5 on building a Sentiment Claasifier using 
 -Dataset to be split into Train/Test in 70/30 ratio (and no validation set)
 #### Initial Investigations
 Readme file stanford dataset revealed <br/>
--The datasetSentences.txt contains the sentence index, followed by the sentence string separated by a tab. These are the sentences of the train/dev/test sets.
+- The *datasetSentences.txt* contains the sentence_index, sentence separated by a tab.
+- The *datasetSplit.txt* contains the sentence_index (corresponding to the index in datasetSentences.txt file) followed by the split_index separated by a comma. split_index are 1, 2 or 3 indicating:<br/>
+	1 = train, 	2 = test, 	3 = dev<br/>
+ (This division into train/test/dev was ignored as one of the requirement listed above specifically says, dividing the dataset into *train* and *test* in 70/30 ratio)
+- The *dictionary.txt* contains phrase_id and phrase, separated by  "|"
+- The *sentiment_labels.txt* contains  phrase ids, sentiment_values, separated by "|"
+From this we can recover the 5 classes by mapping the positivity probability as described above for "very negative", "negative", "neutral", "positive", "very positive", respectively.
 
--ThedatasetSplit.txt contains the sentence index (corresponding to the index in datasetSentences.txt file) followed by the set label separated by a comma:
-	1 = train, 	2 = test, 	3 = dev
- (This division was ignored as one of the requirement listed above specifically says, dividing the dataset into *train* and *test* in 70/30 ratio]
--The *dictionary.txt* contains all phrases and their IDs, separated by a vertical line |
--The *sentiment_labels.txt* contains all phrase ids and the corresponding sentiment labels, separated by a vertical line.
-From this we can recover the 5 classes by mapping the positivity probability as described above for very negative, negative, neutral, positive, very positive, respectively.
-The dataset was studied and a strategy was formed to create a datase
-### Approach
-The dataset was thoroughly studied, a strategy was formulated to create complete review sentences with labels.
-1. Join on sentence_index to reate a set with sentence_index, Sentence, split_index
-2. Join on sentence and phrase to create a set having sentence_index, sentence, phrase, phrase id.
-3. Join on phrase id ( of this set) and phrase_ids (from sentiment_labels.txt) to bring in the respective sentiment values.
+#### Approach
+The dataset was thoroughly studied, a strategy was formulated to create dataset of review sentences with labels.
+1. Join on sentence_index to create a set with sentence_index, sentence, split_index
+2. Join on sentence and phrase to create a set having sentence_index, sentence, phrase, phrase_id.
+3. Join on phrase_id ( of this set) and phrase_ids (from sentiment_labels.txt) to bring in the respective sentiment values.
 4. Convert the sentiment values into labels using the positivity probability distributon listed above.
-5. Finally split the dataset into train and test in 70/30 ratio.
+5. Select relevant fields (sentence, label) from this set created.
+6. Finally split the dataset into train and test in 70/30 ratio.
 ### Discussion
-Now we have the distribution of classes in the training set as shown below (as we have ignored the split specified withthe dataset) :
-![image](https://user-images.githubusercontent.com/82941475/120589588-b2be9c80-c456-11eb-8bc3-cc5d444ae2f5.png)
+Now we have the distribution of classes in the training set as shown below (as we have ignored the split specified with the dataset) :
+![image](https://user-images.githubusercontent.com/82941475/122326485-00083700-cf4a-11eb-9d37-7e670eb1cbad.png)
+It can be seen that training dataset has sentences with labels other than 5 nearly equal.
+
 ### Model 
-LSTM models was built and tested with hyperparameters as given in the table below:
+LSTM model was built and tested with hyperparameters as given in the table below:
 |Hyper parameter| Value|
 |---------------|------|
 |Size of Vocab  | No of words in the text|
@@ -49,7 +49,7 @@ LSTM models was built and tested with hyperparameters as given in the table belo
 Regularisation chosen was L2 with lambda=0.001.
 ### Results
 Best test accuracy achieved was 40.5%
-Graph below shows the variation of loss in testing  and training.
+Graph below shows the variation in loss for testing  and training.
 
 ### Sample 10 Sentences randomly chosen from test set and their sentiments
 |Sentence| Sentiment|
